@@ -34,7 +34,7 @@ The game simulates realistic physics relative to the player's speed:
 
 ---
 
-## 🛠️ Hardware Setup
+## Hardware Setup
 
 The project is built on an **Arduino Uno** using the following components:
 
