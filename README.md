@@ -85,13 +85,15 @@ The goal is to turn this engine into a complete product with progression and rew
 ##  Media
 Video [demo](https://youtu.be/PSyPfQZ8_AU).
 
-Photo [1](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza1.jpg)
+Photo [1](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza1.jpg?raw=true)
 
-Photo [2](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza2.jpg)
+Photo [2](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza2.jpg?raw=true)
 
-Photo [3](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza3.jpg)
+Photo [3](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza3.jpg?raw=true)
 
-Photo [4](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza4.jpg)
+Photo [4](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza4.jpg?raw=true)
+
+
 
 ---
 
