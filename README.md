@@ -83,7 +83,7 @@ The goal is to turn this engine into a complete product with progression and rew
 ---
 
 ##  Media
-*(To be added: Photos of the setup and a video demo link)*
+Video [demo](https://youtu.be/PSyPfQZ8_AU).
 
 ---
 
