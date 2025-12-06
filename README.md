@@ -82,17 +82,23 @@ The goal is to turn this engine into a complete product with progression and rew
 
 ---
 
-##  Media
+## Media
 
-Video [demo](https://youtu.be/8h4KZu4q_a4)
+[Video Demo](https://youtu.be/8h4KZu4q_a4)
+<br>
 
-Photo [1](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza1.jpg?raw=true)
+### Project Photos
 
-Photo [2](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza2.jpg?raw=true)
+![Photo 1 - Taxi Driver Arduino Setup](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza1.jpg?raw=true)
+<br>
 
-Photo [3](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza3.jpg?raw=true)
+![Photo 2 - LCD Menu](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza2.jpg?raw=true)
+<br>
 
-Photo [4](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza4.jpg?raw=true)
+![Photo 3 - Ultrasonic Sensor as Gas Pedal](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza3.jpg?raw=true)
+<br>
+
+![Photo 4 - Full Breadboard Layout](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza4.jpg?raw=true)
 
 
 
