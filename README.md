@@ -53,13 +53,13 @@ The project is built on an **Arduino Uno** using the following components:
 
 By **December 5th**, the following features have been fully implemented and tested:
 
-* ✅ **Menu System:** Functional LCD menu with navigation (Start Game, Settings, Highscore) controlled via Joystick.
-* ✅ **Game Engine:** Core loop implemented with vertical scrolling map logic.
-* ✅ **Controls:** * Steering: Joystick Left/Right works with wall collision prevention.
-    * Acceleration: Ultrasonic sensor successfully mapped to game speed.
-* ✅ **Audio:** Implemented "Theme Song" on start-up and dynamic engine sounds.
-* ✅ **Graphics:** Matrix rendering logic updated to support 2-LED vehicle sizes (Player & Enemies).
-* ✅ **Physics:** "Relative Speed" logic implemented (Overtaking mechanics).
+*  **Menu System:** Functional LCD menu with navigation (Start Game, Settings, Highscore) controlled via Joystick.
+*  **Game Engine:** Core loop implemented with vertical scrolling map logic.
+*  **Controls:** * Steering: Joystick Left/Right works with wall collision prevention.
+* Acceleration: Ultrasonic sensor successfully mapped to game speed.
+*  **Audio:** Implemented "Theme Song" on start-up and dynamic engine sounds.
+* **Graphics:** Matrix rendering logic updated to support 2-LED vehicle sizes (Player & Enemies).
+*  **Physics:** "Relative Speed" logic implemented (Overtaking mechanics).
 
 ---
 
