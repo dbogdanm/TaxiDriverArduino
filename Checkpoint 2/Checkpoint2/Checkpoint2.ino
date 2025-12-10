@@ -1,3 +1,7 @@
+//luminozitate LCD, matrice
+//rezolvat problema cand accelerez si apare STOP, trag cu totul clientul dupa mine(functionalitate de ratat pieton)
+//functionalitate de dat cu spatele
+
 #include "LedControl.h"
 #include <LiquidCrystal.h>
 #include <EEPROM.h>
@@ -64,6 +68,10 @@ int timeLeft = 60;
 unsigned long lastTimerTick = 0;
 const int timeBonus = 10;
 
+
+
+
+
 void setup()
 {
   Serial.begin(9600);
@@ -83,6 +91,12 @@ void setup()
 
   showIntro();
 }
+
+
+
+
+
+
 
 void loop()
 {
@@ -107,6 +121,12 @@ void loop()
   }
 }
 
+
+
+
+
+
+
 void singStartMelody()
 {
   int melody[] = { NOTE_C4, NOTE_E4, NOTE_G4, NOTE_C5, NOTE_G5 };
@@ -119,12 +139,22 @@ void singStartMelody()
   }
 }
 
+
+
+
+
+
+
 void singMoneyMelody()
 {
   tone(buzzerPin, NOTE_G5, 100);
   delay(100);
   tone(buzzerPin, NOTE_C5, 100);
 }
+
+
+
+
 
 void showIntro()
 {
@@ -136,6 +166,13 @@ void showIntro()
   currentState = MENU;
   updateMenuLCD();
 }
+
+
+
+
+
+
+
 
 void runMenu()
 {
@@ -198,6 +235,12 @@ void runMenu()
   }
 }
 
+
+
+
+
+
+
 void updateMenuLCD()
 {
   lcd.clear();
@@ -211,6 +254,13 @@ void updateMenuLCD()
     lcd.print(menuItems[menuIndex + 1]);
   }
 }
+
+
+
+
+
+
+
 
 void updateGameLCD(int distSensor)
 {
@@ -251,6 +301,13 @@ void updateGameLCD(int distSensor)
   }
 }
 
+
+
+
+
+
+
+
 void runGame()
 {
   if (millis() - lastTimerTick >= 1000)
@@ -276,6 +333,9 @@ void runGame()
     }
   }
 
+
+
+
   long dur, dist;
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
@@ -293,6 +353,7 @@ void runGame()
   updateGameLCD(dist);
 
   int dynamicSpeed = enemyConstantSpeed - (money * 2);
+
   if (dynamicSpeed < 100) dynamicSpeed = 100;
 
   if (millis() - lastEnemyMoveForward > dynamicSpeed)
@@ -337,7 +398,7 @@ void runGame()
       if (!hasPassenger)
       {
         hasPassenger = true;
-        objectiveDistance = random(40, 80);
+        objectiveDistance = random(40, 85);
         objectiveCol = (random(0, 2) == 0) ? 0 : 7;
         timeLeft += 2;
       }
@@ -369,6 +430,12 @@ void runGame()
     updateMatrixImage();
   }
 }
+
+
+
+
+
+
 
 void updateMatrixImage()
 {
@@ -422,6 +489,11 @@ void updateMatrixImage()
     lc.setRow(0, row, currentRow);
   }
 }
+
+
+
+
+
 
 void handleInput()
 {
