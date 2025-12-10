@@ -101,6 +101,85 @@ The goal is to turn this engine into a complete product with progression and rew
 ![Photo 4 - Full Breadboard Layout](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%201/Poza4.jpg?raw=true)
 
 
+# Checkpoint 2: The Gameplay Update
+
+**Status:** Completed
+**Focus:** Implementing the core "Taxi" mechanics, objectives, time constraints, and scoring system.
+
+## Description
+In this second phase, the project has evolved from a simple endless runner engine into a fully playable arcade game. The "Taxi" mechanic is now fully functional: the player acts against the clock to locate passengers, pick them up, and deliver them to specific destinations to earn points and extend their time.
+
+## New Features Implemented
+
+### 1. Passenger System (Pick-up & Drop-off)
+The core loop of the game is now implemented with a specific interaction mechanic:
+* **Spawning:** Passengers appear randomly on the left or right sidewalk (columns 0 or 7 on the Matrix).
+* **The "Stop" Mechanic:** To pick up or drop off a passenger, the player must align the car with the target and **come to a complete stop** (by removing their hand from the ultrasonic sensor) while adjacent to the objective.
+* **Navigation:** Once a passenger is onboard, a random destination distance is generated.
+
+### 2. Time Attack Mode
+* **Countdown:** The game now starts with **60 seconds** on the clock.
+* **Risk vs. Reward:** The player must drive fast to reach the destination, but driving too fast makes it harder to stop precisely at the drop-off point.
+* **Bonuses:** Successfully delivering a passenger grants a **+10 second bonus** to the timer, keeping the game alive.
+* **Game Over:** The game ends when the timer hits 0 or the player crashes into traffic.
+
+### 3. Smart UI (LCD HUD)
+The LCD display has been upgraded to provide a dynamic navigation system:
+* **Dynamic Navigation:** Arrows (`<-` or `->`) appear on the screen to indicate which side of the road the objective is on.
+* **Distance Tracker:** Real-time distance display (in virtual meters) to the next pickup or drop-off.
+* **Status Indicators:** Text changes between "Get" (find passenger) and "Drop" (drive to destination).
+* **Stats:** Displays current Money and Time Remaining.
+
+### 4. Scoring & Persistence
+* **Economy:** Money is earned per successful delivery.
+* **High Score:** The game now saves the highest score to the Arduino's **EEPROM**. The high score persists even after the board is powered off or reset.
+
+### 5. Audio Feedback
+New sound effects have been added to enhance game feel:
+* **Success Chime:** A positive melody plays when money is earned.
+* **Timer Warning:** Ticking sound intensifies when time is running low (< 10 seconds).
+* **Game Over:** A distinct melody for running out of time versus crashing.
 
 ---
+
+## Logic Flow Updates
+
+The code structure has been refined into a robust **State Machine**:
+
+1.  **INTRO:** Splash screen ("Taxi Driver") and startup tune.
+2.  **MENU:**
+    * *Start Game:* Initializes variables (Time=60, Score=0).
+    * *High Score:* Reads and displays value from EEPROM.
+    * *Reset Score:* Clears EEPROM data.
+3.  **GAME LOOP:**
+    * Calculates physics (Ultrasonic speed control).
+    * Updates Timers (Game time & Movement ticks).
+    * Checks for "Stop" condition at objectives.
+    * Renders Matrix (Car, Enemies, Objectives).
+4.  **GAME OVER:** Displays reason for loss (Crash/Time) and final score.
+
+---
+
+## Hardware Changes
+*No changes to physical wiring since Checkpoint 1.* The code utilizes the existing setup (Joystick, Ultrasonic, LCD, Matrix) but maximizes their potential through software logic.
+
+
+## Media
+
+[Video Demo](https://www.youtube.com/watch?v=SsuHdYgD8D8)
+<br>
+
+### Project Photos
+
+![Photo 1 - Taxi Driver Arduino Setup](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%202/poza1.jpg?raw=true)
+<br>
+
+![Photo 2 - LCD Menu](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%202/poza2.jpg?raw=true)
+<br>
+
+![Photo 3 - Ultrasonic Sensor as Gas Pedal](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%202/poza3.jpg?raw=true)
+<br>
+
+
+
 
