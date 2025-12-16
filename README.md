@@ -254,11 +254,17 @@ The code is configured for **Arduino Uno** with the following pinout:
 
 ##  Final Deliverables
 
-**Photos:** ![Photo 1 - Taxi Driver Arduino Setup](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%202/poza1.jpg?raw=true)
-<br> (placeholder for the moment)
+**Photos:** ![Photo 1 ](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint3-Final-/Checkpoint3poza1.jpg?raw=true)
+<br> 
+![Photo 2 ](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint3-Final-/Checkpoint3poza2.jpg?raw=true)
+![Photo 3 ](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint3-Final-/Checkpoint3poza3.jpg?raw=true)
 
-**Video Demonstration:**  [Video Demo](https://www.youtube.com/watch?v=SsuHdYgD8D8)
-<br>  (placeholder for the moment)
+
+**Video Demonstration:**  
+
+[Video Gameplay Demo](https://www.youtube.com/watch?v=SMQctiJeqF4)
+<br>  
+[Video Blindspot Assist Demo](https://youtube.com/shorts/wbJxypuzjMo)
 
 ### How to Run
 1.  Install the `LedControl` and `LiquidCrystal` libraries in Arduino IDE.
