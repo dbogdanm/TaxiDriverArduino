@@ -275,6 +275,6 @@ The code is configured for **Arduino Uno** with the following pinout:
 
 **Datasheets USED**
 
-1. ![MAX7219](https://www.alldatasheet.com/datasheet-pdf/view/73745/MAXIM/MAX7219.html)
+1. [MAX7219](https://www.alldatasheet.com/datasheet-pdf/view/73745/MAXIM/MAX7219.html)
 
 
