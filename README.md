@@ -182,4 +182,90 @@ The code structure has been refined into a robust **State Machine**:
 
 
 
+# Checkpoint 3: Final 
+**Project Name:** Taxi Driver - The Matrix Edition
+**Status:** 100% Completed (Final Release)
+
+##  Overview
+This is the final submission for the Introduction to Robotics Matrix Project. **Taxi Driver 1.0** is now a fully featured arcade game that combines a ∞ x 16 logical game world with physical interaction. The project has evolved from a simple prototype into a polished product with a complete economy, persistent high scores, settings, and dynamic audio-visual feedback.
+
+##  Final Features Implemented
+
+### 1. The "Taxi" Gameplay Loop (Complete)
+The core mechanic is fully functional and bug-free:
+* **Mission System:** Players must locate passengers (dots on the sidewalk), come to a complete stop to pick them up, and drive them to a randomly generated destination distance.
+* **Risk/Reward:** The faster you drive, the harder it is to stop exactly at the pickup point. Missing a stop results in a time and money penalty.
+* **Timer & Bonuses:** The game runs on a 60-second timer. Successful drop-offs grant a **+10s time bonus** and **$50**, keeping the game loop alive.
+
+### 2. Logical ∞ x 16 (16x16 as required) Matrix on 8x8 Hardware
+As per the advanced requirements, the game world exists on a **16x14 grid** (logic) displayed on an **8x8 Matrix** (physical):
+* **Camera Panning:** When the player steers to the far right (lane 8+), the viewport shifts ("pans"), rendering the second half of the road.
+* **Blind Spot Warning:** To compensate for the limited view, an indicator on the LCD (`!>` or `<!`) warns the player if a car is approaching from the non-visible side of the map.
+
+### 3. Persistent Data (EEPROM)
+The game now features a fully working saving system:
+* **High Scores:** The top 3 scores are saved in non-volatile memory.
+* **Name Entry:** When a high score is achieved, the player enters a 3-letter name (Arcade style: A-Z selection) which is saved alongside the score.
+* **Settings Memory:** Brightness preferences and Sound settings are remembered even after the Arduino is powered off.
+
+### 4. Polished Menus & UX
+* **Settings Menu:** Allows adjustment of **Matrix Brightness**, **LCD Backlight Brightness** (PWM), and **Sound ON/OFF**.
+* **Custom Graphics:** The menu uses custom bitmaps (Play icon, Cup icon, Settings gear) for a professional look.
+* **Intro Sequence:** A startup animation and melody ("Taxi Driver v1.0").
+
+---
+
+##  Controls & Mechanics
+
+| Input Component | Action | Function |
+| :--- | :--- | :--- |
+| **Ultrasonic Sensor** | **Gas Pedal** | **Hand < 5cm:** Turbo Speed (Overtake traffic)<br>**Hand 15cm:** Cruise Speed<br>**No Hand:** Brake/Stop (Required for pickup) |
+| **Joystick (X-Axis)** | **Steering** | Move Left/Right. Moving past the edge shifts the camera. |
+| **Joystick (Button)** | **Select** | Confirm menu selection / Input Name / Reset Game |
+| **Joystick (Y-Axis)** | **Menu Nav** | Scroll through menu options or letters. |
+
+**Traffic Physics:**
+The game simulates **Relative Velocity**.
+* *Accelerating:* You move faster than traffic -> You overtake cars (they move down).
+* *Stopped:* Traffic moves at normal speed -> Cars pull away (they move up).
+
+---
+
+##  Final Hardware Configuration
+
+The code is configured for **Arduino Uno** with the following pinout:
+
+| Component | Pin (Arduino) | Description |
+| :--- | :--- | :--- |
+| **Ultrasonic Trig** | **D3** | Trigger pin for distance sensing |
+| **Ultrasonic Echo** | **D5** | Echo pin for distance sensing |
+| **LCD RS, EN** | **D9, D8** | LCD Control Pins |
+| **LCD Data (D4-D7)** | **D7, D4, A3, A2** | LCD Data Lines |
+| **LCD Backlight** | **D6** | PWM Control for brightness |
+| **Matrix DIN** | **D12** | Data In |
+| **Matrix CLK** | **D11** | Clock |
+| **Matrix CS/LOAD** | **D10** | Chip Select |
+| **Joystick VRx** | **A0** | Steering |
+| **Joystick VRy** | **A1** | Menu Navigation |
+| **Joystick SW** | **D2** | Button (Pull-up) |
+| **Buzzer** | **D13** | Audio Output |
+
+---
+
+##  Final Deliverables
+
+**Photos:** ![Photo 1 - Taxi Driver Arduino Setup](https://github.com/dbogdanm/TaxiDriverArduino/blob/main/Checkpoint%202/poza1.jpg?raw=true)
+<br> (placeholder for the moment)
+
+**Video Demonstration:**  [Video Demo](https://www.youtube.com/watch?v=SsuHdYgD8D8)
+<br>  (placeholder for the moment)
+
+### How to Run
+1.  Install the `LedControl` and `LiquidCrystal` libraries in Arduino IDE.
+2.  Connect the components according to the table above.
+3.  Upload `TaxiDriver_Final.ino`.
+
+---
+
+
 
