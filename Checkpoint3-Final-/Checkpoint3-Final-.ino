@@ -80,6 +80,7 @@ struct HighScoreEntry
   int score;
   char name[4];
 };
+
 HighScoreEntry topScores[3];
 int newHighIndex = -1;
 char newName[] = "AAA";
@@ -113,14 +114,16 @@ void setup()
 void loop() 
 {
   handleInputDebounce();
-  switch (currentState) {
+  switch (currentState) 
+  {
     case MENU: runMenu(); break;
     case SETTINGS: runSettings(); break;
     case INFO_SCROLL: runInfoScroll(); break;
     case GAME: runGame(); break;
     case ENTER_NAME: runEnterName(); break;
     case GAME_OVER: 
-      if (buttonPressed) {
+      if (buttonPressed) 
+      {
         buttonPressed = false;
         currentState = MENU;
         updateMenuLCD();
@@ -164,7 +167,8 @@ void loadHighScores()
     EEPROM.get(addr, topScores[i]);
     if (topScores[i].score < 0) 
     { 
-      topScores[i].score = 0; strcpy(topScores[i].name, "AAA");
+      topScores[i].score = 0; 
+      strcpy(topScores[i].name, "AAA");
     }
     addr += sizeof(HighScoreEntry);
   }
@@ -190,7 +194,8 @@ void resetHighScores()
 {
   for (int i = 0; i < 3; i++) 
   {
-    topScores[i].score = 0; strcpy(topScores[i].name, "AAA");
+    topScores[i].score = 0; 
+    strcpy(topScores[i].name, "AAA");
   }
 
   saveHighScores();
@@ -271,11 +276,12 @@ void updateMenuLCD()
 void runMenu() 
 {
   int yVal = analogRead(yPin);
+  //mutare in sus
   if (yVal < minThreshold && menuIndex > 0) 
   {
     menuIndex--; updateMenuLCD(); playSound(400, 20); delay(200);
   }
-
+ //mutare in jos
   if (yVal > maxThreshold && menuIndex < menuLen - 1) 
   {
     menuIndex++; updateMenuLCD(); playSound(400, 20); delay(200);
@@ -288,8 +294,8 @@ void runMenu()
     { 
 
       for(int i = 0; i < MAX_CARS; i++) 
-      {
-        enemyRows[i] = -2 - (i * 3); 
+      { //plaseaza masinile deasupra ecranului 
+        enemyRows[i] = -2 - (i * 4); 
         enemyCols[i] = random(2, 14); 
       }
 
@@ -334,7 +340,7 @@ void runMenu()
       lcd.clear();
       lcd.print("Taxi Driver"); 
       lcd.setCursor(0,1);
-      lcd.print("v1.1 Final"); 
+      lcd.print("github-dbogdanm"); 
     }
 
     else if (menuIndex == 4) 
@@ -377,7 +383,7 @@ void updateSettingsLCD()
 
 
 
-
+//creierul pt updatesettingsLCD (separation of concerns)
 void runSettings() 
 {
   int xVal = analogRead(xPin);
@@ -411,13 +417,15 @@ void runSettings()
       resetHighScores(); lcd.clear(); lcd.print("Scores Reset!"); delay(1000);
       saveSettings(); currentState = MENU; updateMenuLCD();
       lc.clearDisplay(0);
-    } else 
+    } 
+    else 
     {
       settingsPage++;
       if (settingsPage > 3) 
       {
         saveSettings(); lc.clearDisplay(0); currentState = MENU; updateMenuLCD();
-      } else 
+      } 
+      else 
       {
         updateSettingsLCD(); delay(200);
       }
@@ -427,7 +435,7 @@ void runSettings()
 
 
 
-
+//verifica daca vr sa ies din info
 void runInfoScroll() 
 {
   if (buttonPressed) { buttonPressed = false; currentState = MENU; updateMenuLCD(); }
@@ -435,7 +443,7 @@ void runInfoScroll()
 
 
 
-
+//bordul masinii
 void updateGameLCD(int distSensor) 
 {
 
@@ -445,6 +453,7 @@ void updateGameLCD(int distSensor)
   lcd.print(timeLeft);
   lcd.print(" $"); lcd.print(money);
 
+  //se scriu spatii goale ca atunci cand pierd bani sa nu ramana cifrele vechi
   if(money < 10) lcd.print("   ");
   else if(money < 100) lcd.print("  ");
   else lcd.print(" ");
@@ -452,6 +461,8 @@ void updateGameLCD(int distSensor)
   bool dangerRight = false;
   bool dangerLeft = false;
 
+
+  //blind spot; //daca ma aflu pe banda stanga, ma uit pe coloana 8 si vad 
   if (xPos <= 7) 
   {
     for(int i=0; i<MAX_CARS; i++) 
@@ -494,6 +505,8 @@ void updateGameLCD(int distSensor)
   }
 
   lcd.setCursor(0, 1);
+
+  //aici e logica de navigare
   if (objectiveDistance > 0) 
   {
     lcd.print("Dst:"); lcd.print(objectiveDistance); lcd.print("m ");
@@ -503,6 +516,7 @@ void updateGameLCD(int distSensor)
       else lcd.print("<<-GO"); 
 
     } 
+
     else 
     { 
       if (xPos >= 8) lcd.print("HERE->");
@@ -517,24 +531,21 @@ void updateGameLCD(int distSensor)
 
 
 
-
+//afisare matrice
 void updateMatrixImage() 
 {
   lc.clearDisplay(0);
+  //simulare de 16 coloane latime
   int cameraOffset = (xPos >= 8) ? 8 : 0;
   bool crash = false;
 
+  //verificare accident
   for(int i=0; i<MAX_CARS; i++) 
-  {
-     if (xPos == enemyCols[i] && enemyRows[i] >= 6 && enemyRows[i] <= 8) 
+  { //masina mea se afla pe randurile 6 si 7 permanent
+     if (xPos == enemyCols[i] && enemyRows[i] >= 6 && enemyRows[i] < 8) 
      {
        crash = true;
      }
-  }
-
-  if (xPos < 2 || xPos > 13) 
-  {
-    crash = true;
   }
 
   if (crash) 
@@ -544,39 +555,46 @@ void updateMatrixImage()
     checkHighScore(); return;
   }
 
+
+//construirea imaginii rand cu rand(randarea)
   for (int row = 0; row < 8; row++) 
   {
     byte displayRow = 0;
 
-    if (objectiveDistance < 8) 
-    {
+    if (objectiveDistance < 8) //randez clientul daca a ajuns la mai putin de 8 pasi de masina
+    {         //6 e pus aici pt ca 6 e botul masinii
       int visualRow = 6 - objectiveDistance;
-      if (row == visualRow) 
+      if (row == visualRow)  //verifici daca ai ajuns
       {
-        if (objectiveCol == 0 && cameraOffset == 0) displayRow |= B10000000;
-        if (objectiveCol == 15 && cameraOffset == 8) displayRow |= B00000001;
-      }
+        if (objectiveCol == 0 && cameraOffset == 0) displayRow |= B10000000; //operator OR pe biti
+        if (objectiveCol == 15 && cameraOffset == 8) displayRow |= B00000001; // adaugi elemente fara  sa
+      }                                                                     // le stergi pe cele anterioare
     }
 
+  //logica benzilor de circulatie
     if (cameraOffset == 0) displayRow |= B01000000; 
 
     else displayRow |= B00000010; 
 
+
+  //logica randarii masinilor si a masinii jucatorului
     for(int i=0; i<MAX_CARS; i++) 
     {
       if (row == enemyRows[i] || row == enemyRows[i] - 1) 
       { 
         if (enemyCols[i] >= cameraOffset && enemyCols[i] < cameraOffset + 8) 
         {
-          int displayCol = enemyCols[i] - cameraOffset;
-          displayRow |= (1 << (7 - displayCol));
+          int displayCol = enemyCols[i] - cameraOffset; //coordonata globala -> locala
+          displayRow |= (1 << (7 - displayCol)); //MAX7219 are: bit 7 -> led stanga
+                                                //bit 0 -> led dreapta, deci fac 7-2(exemplu) = 5 => 00100000
         }
       }
     }
 
+    //randarea playerului
     if (row == 6 || row == 7) 
     {
-      if (xPos >= cameraOffset && xPos < cameraOffset + 8) 
+      if (xPos >= cameraOffset && xPos < cameraOffset + 8) //ma asigur sa fiu in cadru (camera check)
       {
         int displayCol = xPos - cameraOffset;
         displayRow |= (1 << (7 - displayCol));
@@ -592,6 +610,7 @@ void updateMatrixImage()
 
 void runGame() {
 
+//cronometrul (time management in timpu jocului)
   if (millis() - lastTimerTick >= 1000) 
   {
     timeLeft--; lastTimerTick = millis();
@@ -602,7 +621,9 @@ void runGame() {
       checkHighScore(); return;
     }
   }
+  
 
+  //pedala de acceleratie
   long dur, dist;
   digitalWrite(trigPin, LOW); delayMicroseconds(2);
   digitalWrite(trigPin, HIGH); delayMicroseconds(10); digitalWrite(trigPin, LOW);
@@ -618,9 +639,12 @@ void runGame() {
 
   updateGameLCD(dist);
 
+
+
+
   if (soundEnabled && mapSpeedDelay < 2000) 
   {
-    int targetFreq = map(mapSpeedDelay, 100, 1000, 500, 100);
+    int targetFreq = map(mapSpeedDelay, 100, 1000, 500, 100);   //se transforma viteza in frecventa audio
     if (targetFreq < 100) targetFreq = 100; if (targetFreq > 500) targetFreq = 500;
     int tickInterval = mapSpeedDelay / 2;
     if (tickInterval < 50) tickInterval = 50;
@@ -635,6 +659,9 @@ void runGame() {
     noTone(buzzerPin);
   }
 
+
+  //miscarea relativa
+
   bool playerIsStopped = (mapSpeedDelay > 2000);
   int trafficSpeedDelay; 
 
@@ -647,7 +674,12 @@ void runGame() {
   {
 
      trafficSpeedDelay = map(mapSpeedDelay, 100, 1000, 150, 450); 
+     //cu cat merg mai repede cu atat vine traficul mai repede spre mine
+     //se sincronizeaza viteza cu care vine traficul spre tine cu viteza cu care merg eu
+     //100 -> viteza mare, 1000 -> viteza mica
   }
+
+
 
   if (millis() - lastEnemyUpdate > trafficSpeedDelay) 
   {
@@ -658,8 +690,8 @@ void runGame() {
 
       for(int i=0; i<MAX_CARS; i++) 
       {
-        enemyRows[i]--; 
-
+        enemyRows[i]--; //traficul se indeparteaza
+        //cand traficul iese din ecran, o mut inapoi la random ca sa simulez un flux continuu
         if (enemyRows[i] < -8) 
         {
            enemyRows[i] = -2; 
@@ -673,8 +705,8 @@ void runGame() {
 
       for(int i=0; i<MAX_CARS; i++) 
       {
-        enemyRows[i]++; 
-
+        enemyRows[i]++;  //traficul vine inspre mine
+        //aici masina trece de mine
         if (enemyRows[i] > 9) 
         { 
           enemyRows[i] = random(-4, -1); 
@@ -685,7 +717,7 @@ void runGame() {
     }
     updateMatrixImage();
   }
-
+//mersul cu spatele (useless )
   if (digitalRead(swPin) == LOW) 
   { 
 
@@ -699,7 +731,7 @@ void runGame() {
 
   else 
   { 
-
+                                      //miscarea hartii(dictata de mapspeeddelay)
     if (!playerIsStopped && millis() - lastMapUpdate > mapSpeedDelay) 
     {
       lastMapUpdate = millis();
@@ -707,16 +739,16 @@ void runGame() {
       if (objectiveDistance > 0) objectiveDistance--;
       else if (objectiveDistance == 0) 
       {
-
+//generearea random de distanta si de unde se afla clientul cand ratezi
          playSound(NOTE_G4, 150); lcd.setCursor(0, 1); lcd.print("MISSED!");
          timeLeft -= missPenaltyTime; money -= missPenaltyMoney; if(money<0) money=0;
-         objectiveDistance = random(20, 50);
+         objectiveDistance = random(20, 60);
          objectiveCol = (random(0,2)==0) ? 0 : 15;
          delay(1000);
       }
       updateMatrixImage();
     }
-
+//mecanismul de pickup client succesful
     if (objectiveDistance == 0 && playerIsStopped) 
     {
       bool properStop = false;
@@ -735,13 +767,15 @@ void runGame() {
         else 
         {
           hasPassenger = false; money += 50; timeLeft += timeBonus;
-          objectiveDistance = random(20, 50);
+          objectiveDistance = random(20, 60);
           objectiveCol = (random(0,2)==0) ? 0 : 15;
         }
         delay(1000);
       }
     }
 
+
+//directia (volanul)
     if (millis() - lastMovedCar > carMoveInterval) 
     {
       int xVal = analogRead(xPin);
@@ -823,7 +857,7 @@ void saveNewHighScore()
 
 void showIntro() 
 {
-  lcd.clear(); lcd.print("Taxi Driver 1.0"); 
+  lcd.clear(); lcd.print("Taxi Driver 1.3"); 
   playSound(NOTE_C5, 100); delay(150); playSound(NOTE_E4, 100);
   delay(2000); currentState = MENU; updateMenuLCD();
 }
